@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "963274345932",
+    "project_id": "one-dollar-deal-7cc2c",
+    "storage_bucket": "one-dollar-deal-7cc2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963274345932:android:6c3d6e329dcc051e54e169",
+        "android_client_info": {
+          "package_name": "com.onedollardeal.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963274345932-jeucomlqulctbpbme29qu50m5s38qpl7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAruJE7sxnb_sloZXokiU2LgcSP7Ll8TEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963274345932-jeucomlqulctbpbme29qu50m5s38qpl7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
