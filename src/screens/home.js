@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {DrawerActions} from '@react-navigation/native';
 
@@ -18,8 +18,8 @@ import {
 } from 'src/modules/common/selectors';
 
 import {fetchSetting} from 'src/modules/common/service';
-import {useNavigation} from '@react-navigation/native';
 import {mainStack} from 'src/config/navigator';
+import SplashScreen from 'react-native-splash-screen';
 
 // Containers
 import Slideshow from './home/containers/Slideshow';
@@ -79,9 +79,9 @@ const widthComponent = spacing => {
 };
 
 const HomeScreen = props => {
-  const naviagtionHook = useNavigation();
+  const [product, setProduct] = useState(undefined);
   const {dispatch} = props;
-  const {config, toggleSidebar, navigation, navigationType} = props;
+  const {config, toggleSidebar, navigation} = props;
 
   useEffect(() => {
     getConfig();
@@ -90,9 +90,18 @@ const HomeScreen = props => {
   }, []);
 
   useEffect(() => {
+    if (product) {
+      SplashScreen.hide();
+      props.navigation.navigate(mainStack.product, {product: product});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
+
+  useEffect(() => {
     Linking.getInitialURL()
       .then(ev => {
         if (ev) {
+          SplashScreen.show();
           var productSlug = '';
           if (ev.split(':')[0] === 'onedollardeal') {
             productSlug = ev.split('onedollardeal://');
@@ -119,7 +128,6 @@ const HomeScreen = props => {
           fetch(url, requestOptions)
             .then(response => response.text())
             .then(result => {
-              console.log('result id =>', result);
               handleOpenURL(343);
             })
             .catch(error => console.log('error', error));
@@ -130,6 +138,7 @@ const HomeScreen = props => {
       });
 
     const subscription = Linking.addEventListener('url', url => {
+      SplashScreen.show();
       var productSlug = '';
       if (url) {
         if (url.split(':')[0] === 'onedollardeal') {
@@ -169,14 +178,11 @@ const HomeScreen = props => {
   }, []);
 
   const handleOpenURL = async productId => {
-    const product = await getSingleProduct(
+    const productFetched = await getSingleProduct(
       productId,
       props.language ? props.language : 'en',
     );
-    console.log('====================================');
-    console.log('product fetched =>', product);
-    console.log('====================================');
-    props.navigation.navigate(mainStack.product, {product: product});
+    setProduct(productFetched);
   };
 
   const getConfig = async () => {

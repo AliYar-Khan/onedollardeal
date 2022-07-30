@@ -49,9 +49,6 @@ import Page from 'src/screens/profile/Page';
 const Stack = createNativeStackNavigator();
 
 function MainStack(props) {
-  console.log('====================================');
-  console.log('props =>', props);
-  console.log('====================================');
   return (
     <Stack.Navigator
       initialRouteName={mainStack.home_tab}
